@@ -1,0 +1,26 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "name": "root",
+      "password": "123456"
+    }
+  ],
+  "Products": [
+    {
+      "name": "good",
+      "price": "333",
+      "id": 5
+    },
+    {
+      "name": "BigApple",
+      "price": "9201",
+      "id": 6
+    },
+    {
+      "name": "ww",
+      "price": 12,
+      "id": 7
+    }
+  ]
+}
