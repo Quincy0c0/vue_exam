@@ -2,8 +2,19 @@
 
 import { RouterLink, RouterView } from 'vue-router'
 
+import { useUserStore } from '@/stores/counter';
+
+import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore()
+
+const { loginUser,inputPassword, inputUser, } = storeToRefs(userStore)
+
 
 const clearLogin = () => {
+  loginUser.value = ''
+  inputPassword.value = ''
+  inputUser.value = ''
   localStorage.removeItem('isLogin')
 }
 
@@ -12,6 +23,7 @@ const clearLogin = () => {
 <template>
 
   <div class="topbar"><span>shoppinglist</span>
+    <span class="user">欢迎：{{ loginUser }}</span>
     <button @click="clearLogin"><router-link to="/login">退出登录</router-link></button>
   </div>
   <div class="content">
@@ -40,6 +52,16 @@ const clearLogin = () => {
   text-align: center;
   position: relative;
   line-height: 50px;
+}
+
+.topbar span {
+  margin-right: 10px;
+}
+
+.user {
+  position: absolute;
+  right: 150px;
+  top: 10px;
 }
 
 

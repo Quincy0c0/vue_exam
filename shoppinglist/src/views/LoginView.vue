@@ -1,39 +1,15 @@
 <script setup>
 
-import { getUsersApi } from '../api/Users.js'
 
-import { ref } from 'vue'
+import { useUserStore } from '@/stores/counter.js';
 
-import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia';
 
+const userStore = useUserStore()
 
-const users = ref([])
+const { login } = userStore
 
-const inputUser = ref('')
-
-const inputPassword = ref('')
-
-const router = useRouter()
-
-getUsersApi().then(data => {
-  users.value = data
-})
-
-
-const login = () => {
-  const user = users.value.find(user => user.name === inputUser.value)
-  if (user) {
-    if (user.password === inputPassword.value) {
-      localStorage.setItem('isLogin', true )
-      alert('登录成功')
-      router.push('/shoppinglist')
-    } else {
-      alert('密码错误')
-    }
-  } else {
-    alert('用户不存在')
-  }
-}
+const { inputPassword,inputUser} = storeToRefs(userStore)
 
 
 </script>
@@ -45,7 +21,7 @@ const login = () => {
     <br>
     <input type="password" placeholder="密码" v-model="inputPassword" />
     <br>
-    <button @click="login">登录</button>
+    <button @click="login(inputUser, inputPassword)">登录</button>
   </div>
 </template>
 

@@ -56,8 +56,6 @@ const update = (id,item) => {
 }
 onMounted(() => {
   getShoppingList()
-  console.log(shoppingList.value);
-
 })
 
 </script>

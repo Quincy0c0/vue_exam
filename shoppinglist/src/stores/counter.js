@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 import { defineStore } from 'pinia'
 
@@ -36,4 +36,41 @@ export const useListStore = defineStore('lists', () => {
 
   return { shoppingList, getShoppingList, addShopping, deleteShopping, updateShopping, uuid }
 
+})
+
+import { getUsersApi } from '@/api/Users'
+import { useRouter } from 'vue-router'
+
+export const useUserStore = defineStore('user', () => {
+
+  //userouter要放在顶层
+  const router = useRouter()
+
+  const users = ref([])
+
+  const inputUser = ref('')
+
+  const inputPassword = ref('')
+
+  const loginUser = ref('')
+  getUsersApi().then(data => {
+    users.value = data
+  })
+
+  const login = async () => {
+    const user = users.value.find(user => user.name === inputUser.value)
+    if (user) {
+      if (user.password === inputPassword.value) {
+        localStorage.setItem('isLogin', true)
+        router.push('/shoppinglist')
+        loginUser.value = user.name
+      } else {
+        alert('密码错误')
+      }
+    } else {
+      alert('用户不存在')
+    }
+  }
+
+  return { users, inputPassword, inputUser, login, loginUser }
 })
