@@ -6,19 +6,19 @@
 const products = [
   {
     id: 1,
-    title: "iphone 14",
+    title: 'iphone 14',
     price: 5000,
     number: 10, //表示库存
   },
   {
     id: 2,
-    title: "xiaomi 13",
+    title: 'xiaomi 13',
     price: 3000,
     number: 20, //表示库存
   },
   {
     id: 3,
-    title: "huawei mate10",
+    title: 'huawei mate10',
     price: 4000,
     number: 8, //表示库存
   },
@@ -41,4 +41,3 @@ function wait(delay) {
     setTimeout(res, delay);
   });
 }
-
