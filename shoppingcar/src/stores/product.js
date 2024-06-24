@@ -11,8 +11,13 @@ export const useProductStore = defineStore('product', () => {
 
   getProducts().then((res) => {
     product.value = res;
-    // console.log(product.value);
   });
+
+  // const setProduct = async () => {
+  //   const res = await getProducts();
+  //   product.value = res;
+  // };
+  // setProduct();
 
   const car = ref([]);
 
