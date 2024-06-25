@@ -3,28 +3,33 @@
     :data="car"
     style="width: 100%">
     <el-table-column
+      align="center"
       prop="title"
       label="商品名称">
-      <template #default="scope">
+      <!-- <template #default="scope">
         {{ scope.row.title }}
-      </template>
+      </template> -->
     </el-table-column>
 
     <el-table-column
+      align="center"
       prop="price"
       label="价格">
-      <template #default="scope">
+      <!-- <template #default="scope">
         {{ scope.row.price }}
-      </template>
+      </template> -->
     </el-table-column>
     <el-table-column
+      align="center"
       prop="number"
       label="数量">
-      <template #default="scope">
+      <!-- <template #default="scope">
         {{ scope.row.number }}
-      </template>
+      </template> -->
     </el-table-column>
-    <el-table-column label="操作">
+    <el-table-column
+      align="center"
+      label="操作">
       <template #default="scope">
         <el-button
           type="danger"

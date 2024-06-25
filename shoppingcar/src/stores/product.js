@@ -13,16 +13,10 @@ export const useProductStore = defineStore('product', () => {
     product.value = res;
   });
 
-  // const setProduct = async () => {
-  //   const res = await getProducts();
-  //   product.value = res;
-  // };
-  // setProduct();
-
   const car = ref([]);
 
   const addToCar = (item) => {
-    console.log(item);
+    // console.log(item);
     if (product.value[item.id - 1].number > 0) {
       if (item.id in car.value) {
         product.value[item.id - 1].number--;
