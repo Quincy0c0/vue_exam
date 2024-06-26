@@ -10,11 +10,13 @@
     <div class="wordbox">
       <ul
         class="wordline"
-        :style="transform_long">
+        :style="transform_long"
+        ref="wordline">
         <li
           v-for="(item, index) in word"
           :key="index"
-          :class="index == isActive ? 'active' : ''">
+          :class="index == isActive ? 'active' : ''"
+          ref="worditem">
           {{ item }}
           <template v-if="item == ''">
             <br />
@@ -32,23 +34,38 @@ export default {
     songlist: [],
     timeline: [],
     word: [],
-    isActive: 1,
+    isActive: -1,
     transform_long: '',
   }),
   methods: {
     timeupdate(e) {
       const time = e.target.currentTime;
-      this.timeline.forEach((item, index) => {
+      if (time > this.timeline[72]) {
+        this.isActive = 72;
+        this.transform_long = `transform:translateY(${
+          220 - 72 * this.$refs.worditem[72].offsetHeight
+        }px)`;
+      }
+      // this.timeline.forEach((item, index) => {
+      //   if (time > item && time < this.timeline[index + 1]) {
+      //     this.isActive = index;
+      //     this.transform_long = `transform:translateY(${
+      //       220 - index * this.$refs.worditem[index].offsetHeight
+      //     }px)`;
+      //   }
+      // });
+      this.timeline.findIndex((item, index) => {
         if (time > item && time < this.timeline[index + 1]) {
           this.isActive = index;
-          this.transform_long = `transform:translateY(${220 - index * 31}px)`;
+          this.transform_long = `transform:translateY(${
+            220 - index * this.$refs.worditem[index].offsetHeight
+          }px)`;
         }
       });
     },
   },
 
   mounted() {
-    console.log('mounted');
     fetch('http://project.x-zd.net:3001/apis/songword')
       .then((res) => res.json())
       .then((data) => {
@@ -106,6 +123,7 @@ export default {
         font-size: 16px;
         line-height: 30px;
         transition: all 0.5s;
+        text-align: center;
         &.active {
           color: #fff;
           // font-size: 20px;
