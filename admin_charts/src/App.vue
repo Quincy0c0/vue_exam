@@ -6,6 +6,11 @@
       style="width: 600px; height: 400px">
       <v-chart :option="option" />
     </div>
+    <el-switch
+      v-model="value"
+      active-color="#13ce66"
+      inactive-color="#ff4949">
+    </el-switch>
   </div>
 </template>
 
@@ -33,6 +38,7 @@ export default {
           },
         ],
       },
+      value: true,
     };
   },
 };
