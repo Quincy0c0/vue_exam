@@ -15,6 +15,7 @@
     "reset-css": "^5.0.2",
     "sass": "^1.77.6",
     "vue": "^2.7.7",
+    "vue-echarts": "^6.7.3",
     "vue-router": "^3.5.4"
   },
   "devDependencies": {

@@ -1,15 +1,16 @@
-import Vue from 'vue'
-import { createPinia, PiniaVuePlugin } from 'pinia'
+import Vue from 'vue';
+// import { createPinia, PiniaVuePlugin } from 'pinia';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+// import router from './router';
 
-import './assets/main.css'
+// Vue.use(PiniaVuePlugin);
 
-Vue.use(PiniaVuePlugin)
+import './plugins/element-ui.js';
+import './plugins/encharts.js';
 
 new Vue({
-  router,
-  pinia: createPinia(),
-  render: (h) => h(App)
-}).$mount('#app')
+  // router,
+  // pinia: createPinia(),
+  render: (h) => h(App),
+}).$mount('#app');

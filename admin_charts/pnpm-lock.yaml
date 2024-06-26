@@ -29,6 +29,9 @@ importers:
       vue:
         specifier: ^2.7.7
         version: 2.7.16
+      vue-echarts:
+        specifier: ^6.7.3
+        version: 6.7.3(echarts@5.5.0)(vue@2.7.16)
       vue-router:
         specifier: ^3.5.4
         version: 3.6.5(vue@2.7.16)
@@ -817,6 +820,9 @@ packages:
   reset-css@5.0.2:
     resolution: {integrity: sha512-YtgUGSq5z5W0NPSjsBW7ys7rtWa8P8AiE7S6Fg3d1TQCPpAodgYyLuZYlU0AOsLtprk/fC9ormHN/0pAavVIDw==}
 
+  resize-detector@0.3.0:
+    resolution: {integrity: sha512-R/tCuvuOHQ8o2boRP6vgx8hXCCy87H1eY9V5imBYeVNyNVpuL9ciReSccLj2gDcax9+2weXy3bc8Vv+NRXeEvQ==}
+
   resize-observer-polyfill@1.5.1:
     resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
 
@@ -959,6 +965,17 @@ packages:
       terser:
         optional: true
 
+  vue-demi@0.13.11:
+    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+    engines: {node: '>=12'}
+    hasBin: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+
   vue-demi@0.14.8:
     resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
@@ -968,6 +985,19 @@ packages:
       vue: ^3.0.0-0 || ^2.6.0
     peerDependenciesMeta:
       '@vue/composition-api':
+        optional: true
+
+  vue-echarts@6.7.3:
+    resolution: {integrity: sha512-vXLKpALFjbPphW9IfQPOVfb1KjGZ/f8qa/FZHi9lZIWzAnQC1DgnmEK3pJgEkyo6EP7UnX6Bv/V3Ke7p+qCNXA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.0.5
+      '@vue/runtime-core': ^3.0.0
+      echarts: ^5.4.1
+      vue: ^2.6.12 || ^3.1.1
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      '@vue/runtime-core':
         optional: true
 
   vue-eslint-parser@9.4.3:
@@ -1706,6 +1736,8 @@ snapshots:
 
   reset-css@5.0.2: {}
 
+  resize-detector@0.3.0: {}
+
   resize-observer-polyfill@1.5.1: {}
 
   resolve-from@4.0.0: {}
@@ -1811,9 +1843,20 @@ snapshots:
       sass: 1.77.6
       terser: 5.31.1
 
+  vue-demi@0.13.11(vue@2.7.16):
+    dependencies:
+      vue: 2.7.16
+
   vue-demi@0.14.8(vue@2.7.16):
     dependencies:
       vue: 2.7.16
+
+  vue-echarts@6.7.3(echarts@5.5.0)(vue@2.7.16):
+    dependencies:
+      echarts: 5.5.0
+      resize-detector: 0.3.0
+      vue: 2.7.16
+      vue-demi: 0.13.11(vue@2.7.16)
 
   vue-eslint-parser@9.4.3(eslint@8.57.0):
     dependencies:
