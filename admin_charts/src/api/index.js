@@ -7,3 +7,7 @@ export const getReportData = () => {
 export const getSaleData = () => {
   return request.get('/saledata');
 };
+
+export const getKeyWordData = () => {
+  return request.get('/keyworddata');
+};
