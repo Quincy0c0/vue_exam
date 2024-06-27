@@ -50,8 +50,8 @@
         </template>
       </general-card>
       <general-card
-        :headerText="'累计销售额'"
-        :value="reportData.salesToday">
+        :headerText="'累计用户数'"
+        :value="reportData.totalUser">
         <template v-slot:chart>
           <total-trade-chart :dataValue="reportData.userLastMonth" />
         </template>
@@ -71,6 +71,9 @@
         </template>
       </general-card>
     </div>
+    <div class="secondComps">
+      <second-comps-card />
+    </div>
   </div>
 </template>
 
@@ -85,12 +88,15 @@ import TradeNumberChart from './components/FirstComps/TradeNumberChart.vue';
 
 import TotalTradeChart from './components/FirstComps/TotalTradeChart.vue';
 
+import SecondCompsCard from './components/SecondComps/SecondCompsCard.vue';
+
 export default {
   components: {
     GeneralCard,
     SalesGrowChart,
     TradeNumberChart,
     TotalTradeChart,
+    SecondCompsCard,
   },
   data() {
     return {
@@ -98,10 +104,8 @@ export default {
     };
   },
   async mounted() {
-    console.log('mounted');
     const res = await getReportData();
     this.reportData = res.data;
-    console.log(this.reportData);
   },
 };
 </script>
@@ -112,7 +116,6 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #eee;
-
   .firstComps {
     display: flex;
     justify-content: space-evenly;
@@ -172,6 +175,10 @@ export default {
         }
       }
     }
+  }
+  .secondComps {
+    margin: 20px 1%;
+    width: 98%;
   }
 }
 </style>
