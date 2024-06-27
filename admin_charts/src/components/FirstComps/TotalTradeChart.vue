@@ -34,7 +34,7 @@ export default {
         series: [
           {
             type: 'bar',
-            data: [130],
+            data: [this.dataValue.lastmonth],
             itemStyle: {
               color: 'green',
             },
@@ -43,7 +43,7 @@ export default {
           },
           {
             type: 'bar',
-            data: [30],
+            data: [this.dataValue.today],
             itemStyle: {
               color: '#ddd',
             },
@@ -52,6 +52,7 @@ export default {
           },
           {
             type: 'custom',
+            data: [this.dataValue.lastmonth],
             renderItem: (params, api) => {
               //获取三角形绘制的那个位置
               const endPoint = api.coord([api.value(0), 0]);
@@ -89,25 +90,14 @@ export default {
                 ],
               };
             },
-            data: [130],
           },
         ],
       };
     },
   },
-  mounted() {
-    this.putData();
-  },
   watch: {
     dataValue() {
-      // console.log(this.dataValue);
-      // console.log(this.option.series[0].data);
-      // console.log(this.option.series[1].data);
-      // console.log(this.option.series[2].data);
-      this.option.series[0].data[0] = this.dataValue;
-      this.option.series[2].data[0] = this.dataValue;
-      // console.log(this.option.series[0].data);
-      // this.putData();
+      this.putData();
     },
   },
 };

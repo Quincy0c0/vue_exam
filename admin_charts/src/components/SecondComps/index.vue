@@ -16,6 +16,6 @@ export default {
 
 <style scoped>
 .secondComps {
-  margin: 10px 1%;
+  margin: 20px 1%;
 }
 </style>

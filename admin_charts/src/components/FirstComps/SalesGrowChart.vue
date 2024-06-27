@@ -24,6 +24,7 @@ export default {
         xAxis: {
           type: 'category',
           show: false,
+          boundaryGap: false,
         },
         yAxis: {
           type: 'value',
@@ -40,7 +41,7 @@ export default {
             name: '销量',
             type: 'line',
             smooth: true,
-            data: [5, 20, 36, 10, 10, 20],
+            data: this.dataValue,
             lineStyle: {
               opacity: 0,
             },
@@ -55,13 +56,9 @@ export default {
       };
     },
   },
-  mounted() {
-    this.putData();
-  },
   watch: {
     dataValue() {
-      // console.log(this.dataValue);
-      this.option.series[0].data = this.dataValue;
+      this.putData();
     },
   },
 };

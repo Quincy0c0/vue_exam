@@ -7,11 +7,17 @@
         <div class="chart1">
           <p>
             <span> 日同比</span> {{ reportData.salesGrowLastDay }}%
-            <span class="increase"></span>
+            <span
+              :class="
+                reportData.salesGrowLastDay >= 0 ? 'increase' : 'decrease'
+              "></span>
           </p>
           <p>
             <span>月同比 </span>{{ reportData.saleSGrowLastMonth }}%
-            <span class="increase"></span>
+            <span
+              :class="
+                reportData.saleSGrowLastMonth >= 0 ? 'increase' : 'decrease'
+              "></span>
           </p>
         </div>
       </template>
@@ -52,19 +58,29 @@
       :headerText="'累计用户数'"
       :value="reportData.totalUser">
       <template v-slot:chart>
-        <total-trade-chart :dataValue="reportData.userLastMonth" />
+        <total-trade-chart
+          :dataValue="{
+            lastmonth: reportData.userLastMonth,
+            today: reportData.userToday,
+          }" />
       </template>
       <template v-slot:button>
         <div class="button">
           <div>
             <span>日同比</span>
             {{ reportData.userGrowLastDay }}%
-            <span class="increase"></span>
+            <span
+              :class="
+                reportData.userGrowLastDay >= 0 ? 'increase' : 'decrease'
+              "></span>
           </div>
           <div>
             <span>月同比</span>
             {{ reportData.userGrowLastMonth }}%
-            <span class="increase"></span>
+            <span
+              :class="
+                reportData.userGrowLastMonth >= 0 ? 'increase' : 'decrease'
+              "></span>
           </div>
         </div>
       </template>
@@ -132,6 +148,15 @@ export default {
           transform: translateY(0%);
           margin-left: 5px;
         }
+        .decrease {
+          position: absolute;
+          height: 0;
+          border-width: 4px;
+          border-color: red transparent transparent transparent;
+          border-style: solid;
+          transform: translateY(50%);
+          margin-left: 5px;
+        }
       }
     }
     .button {
@@ -157,6 +182,15 @@ export default {
           border-color: transparent transparent green transparent;
           border-style: solid;
           transform: translateY(0%);
+          margin-left: 5px;
+        }
+        .decrease {
+          position: absolute;
+          height: 0;
+          border-width: 4px;
+          border-color: red transparent transparent transparent;
+          border-style: solid;
+          transform: translateY(50%);
           margin-left: 5px;
         }
       }
