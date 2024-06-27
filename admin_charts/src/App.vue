@@ -1,21 +1,19 @@
 <template>
   <div class="container">
     <first-comps />
-    <div class="secondComps">
-      <second-comps-card />
-    </div>
+    <second-comps />
   </div>
 </template>
 
 <script>
 import firstComps from './components/FirstComps/index.vue';
 
-import SecondCompsCard from './components/SecondComps/SecondCompsCard.vue';
+import SecondComps from './components/SecondComps/index.vue';
 
 export default {
   components: {
     firstComps,
-    SecondCompsCard,
+    SecondComps,
   },
 };
 </script>
@@ -26,9 +24,5 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #eee;
-  .secondComps {
-    margin: 20px 1%;
-    width: 98%;
-  }
 }
 </style>
