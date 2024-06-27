@@ -1,6 +1,6 @@
 <template>
   <div class="secondComps">
-    <SecondCompsCard />
+    <SecondCompsCard :DataValue="{ ...Value }" />
   </div>
 </template>
 
@@ -10,6 +10,11 @@ import SecondCompsCard from './SecondCompsCard.vue';
 export default {
   components: {
     SecondCompsCard,
+  },
+  data() {
+    return {
+      Value: {},
+    };
   },
 };
 </script>
