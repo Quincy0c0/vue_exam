@@ -197,7 +197,7 @@ export default {
 }
 
 .chart {
-  min-width: 1100px;
+  /* min-width: 1100px; */
   position: relative;
   left: -3%;
 }
@@ -207,6 +207,7 @@ export default {
   flex-direction: column;
   position: relative;
   left: -3%;
+  min-width: 158px;
 }
 
 .viewport ul .title {
