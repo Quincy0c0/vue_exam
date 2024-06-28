@@ -36,7 +36,7 @@
     <div class="viewport">
       <div
         class="chart"
-        style="width: 69%; height: 435px">
+        style="width: 70%; height: 435px">
         <v-chart
           :option="option"
           style="width: 100%; height: 100%" />
@@ -131,15 +131,24 @@ export default {
         },
         xAxis: {
           data: this.xInChart,
+          axisTick: {
+            alignWithLabel: true,
+          },
         },
-        yAxis: {},
+        yAxis: {
+          splitLine: {
+            lineStyle: {
+              type: 'dotted',
+            },
+          },
+        },
         series: [
           {
             name: '销量',
             type: 'bar',
             data: this.yInChart,
             color: 'skyblue',
-            barWidth: 30,
+            barWidth: '40%',
           },
         ],
       };
@@ -148,7 +157,7 @@ export default {
   async mounted() {
     const res = await getSaleData();
     this.DataValue = res.data;
-    console.log(this.DataValue);
+    // console.log(this.DataValue);
     this.chart1();
   },
 };
@@ -185,11 +194,10 @@ export default {
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin-top: 20px;
-  flex-wrap: wrap;
 }
 
 .chart {
+  min-width: 1100px;
   position: relative;
   left: -3%;
 }
@@ -197,6 +205,8 @@ export default {
 .viewport ul {
   display: flex;
   flex-direction: column;
+  position: relative;
+  left: -3%;
 }
 
 .viewport ul .title {
