@@ -4,7 +4,7 @@ import { createPinia, PiniaVuePlugin } from 'pinia';
 import App from './App.vue';
 // import router from './router';
 
-Vue.use(PiniaVuePlugin);
+// Vue.use(PiniaVuePlugin);
 
 import './plugins/element-ui.js';
 import './plugins/encharts.js';
