@@ -59,6 +59,22 @@ export default {
         },
         tooltip: {
           trigger: 'item',
+          formatter: function (params) {
+            var colorDotHtml =
+              '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:' +
+              params.color +
+              ';"></span>';
+            return (
+              params.seriesName +
+              '<br/>' +
+              colorDotHtml +
+              params.name +
+              '<br/>' +
+              colorDotHtml +
+              '销售额:' +
+              params.value
+            );
+          },
         },
         legend: {
           left: 'right',

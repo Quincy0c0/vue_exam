@@ -3,6 +3,7 @@
     <first-comps />
     <second-comps />
     <third-comps />
+    <thurth-comps />
   </div>
 </template>
 
@@ -13,11 +14,14 @@ import SecondComps from './components/SecondComps/index.vue';
 
 import ThirdComps from './components/ThirdComps/index.vue';
 
+import ThurthComps from './components/ThurthComps/index.vue';
+
 export default {
   components: {
     firstComps,
     SecondComps,
     ThirdComps,
+    ThurthComps,
   },
 };
 </script>
