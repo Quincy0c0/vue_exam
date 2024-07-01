@@ -3,7 +3,7 @@
     <div
       slot="header"
       class="clearfix">
-      <span>分类销售排行</span>
+      <span class="text">分类销售排行</span>
       <el-radio-group v-model="radio">
         <el-radio-button label="品类"></el-radio-button>
         <el-radio-button label="商品"></el-radio-button>
@@ -180,9 +180,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-::v-deep .el-card__header {
+:deep(.el-card__header) {
   padding: 6px 18px;
-  span {
+  .text {
     font-weight: bold;
   }
   .el-radio-group {

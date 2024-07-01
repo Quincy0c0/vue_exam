@@ -15,3 +15,7 @@ export const getKeyWordData = () => {
 export const getCategoryData = () => {
   return request.get('/categorydata');
 };
+
+export const getMapData = () => {
+  return request.get('/mapdata');
+};
