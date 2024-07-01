@@ -31,46 +31,72 @@ export default {
   methods: {
     CreateChart() {
       this.option = {
-        title: {
-          text: '品类分布',
-          subtext: `{a|累计订单量}\n{b|${this.sumValue}}`,
-          itemGap: 190,
-          textStyle: {
-            fontSize: 14,
-            color: '#999',
+        title: [
+          {
+            text: '品类分布',
+            // subtext: `{a|累计订单量}\n{b|${this.sumValue}}`,
+            // itemGap: 190,
+            textStyle: {
+              fontSize: 14,
+              color: '#999',
+            },
+            // subtextStyle: {
+            //   rich: {
+            //     a: {
+            //       fontSize: 14,
+            //       fontWeight: 'bold',
+            //       color: '#999',
+            //       padding: [30, 0, 0, 270],
+            //     },
+            //     b: {
+            //       fontSize: 28,
+            //       color: '#333',
+            //       // fontWeight: 'bold',
+            //       lineHeight: 50,
+            //       padding: [0, 0, 0, 270],
+            //     },
+            //   },
+            // },
           },
-          subtextStyle: {
-            rich: {
-              a: {
-                fontSize: 14,
-                fontWeight: 'bold',
-                color: '#999',
-                padding: [30, 0, 0, 270],
-              },
-              b: {
-                fontSize: 28,
-                color: '#333',
-                // fontWeight: 'bold',
-                lineHeight: 50,
-                padding: [0, 0, 0, 270],
+          {
+            text: `{a|累计订单量}\n{b|${this.sumValue}}`,
+            // textVerticalAlign: 'middle',
+            // textAlign: 'center',
+            top: '45%',
+            left: '35%',
+            textStyle: {
+              rich: {
+                a: {
+                  fontSize: 14,
+                  fontWeight: 'bold',
+                  color: '#999',
+                },
+                b: {
+                  fontSize: 28,
+                  color: '#333',
+                  // fontWeight: 'bold',
+                  lineHeight: 50,
+                },
               },
             },
           },
-        },
+        ],
         tooltip: {
           trigger: 'item',
           formatter: function (params) {
-            var colorDotHtml =
-              '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:' +
-              params.color +
-              ';"></span>';
+            // var colorDotHtml =
+            //   '<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:' +
+            //   params.color +
+            //   ';"></span>';
             return (
               params.seriesName +
               '<br/>' +
-              colorDotHtml +
+              // colorDotHtml +
+              params.marker +
               params.name +
               '<br/>' +
-              colorDotHtml +
+              // colorDotHtml +
+              params.marker +
               '销售额:' +
               params.value
             );

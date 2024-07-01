@@ -37,7 +37,7 @@ export default {
     putData() {
       let resSearch = [];
       let resUser = [];
-      this.dataValue.keyWordData.forEach((element) => {
+      this.dataValue.showData.forEach((element) => {
         resSearch.push(element.totalSearch);
         resUser.push(element.totalUser);
       });
@@ -46,7 +46,9 @@ export default {
     },
     createChartUser() {
       this.optionTotalUser = {
-        tooltip: {},
+        tooltip: {
+          show: false,
+        },
         legend: {
           show: false,
         },
@@ -84,7 +86,9 @@ export default {
     },
     createChartSearch() {
       this.optionTotalSearch = {
-        tooltip: {},
+        tooltip: {
+          show: false,
+        },
         legend: {
           show: false,
         },
@@ -124,7 +128,7 @@ export default {
   watch: {
     dataValue() {
       // console.log('dataValue', this.dataValue);
-      // console.log(this.dataValue.keyWordData);
+      // console.log(this.dataValue.showData);
       this.putData();
       this.createChartUser();
       this.createChartSearch();

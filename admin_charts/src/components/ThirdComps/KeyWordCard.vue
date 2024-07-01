@@ -7,7 +7,7 @@
     </div>
     <div class="main">
       <key-word-chart
-        :dataValue="{ keyWordData, TotalUser, TotalSearch }"></key-word-chart>
+        :dataValue="{ showData, TotalUser, TotalSearch }"></key-word-chart>
       <el-table
         :data="showData"
         style="width: 100%">
@@ -31,7 +31,8 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="40"
+        :total="keyWordData.length"
+        :page-size="pageSize"
         @current-change="pageChange">
       </el-pagination>
     </div>
