@@ -17,3 +17,7 @@ export const getAllWeather = (adcode) => {
     `/weather/weatherInfo?key=73da48818bed5c8e65bc1a06cd9859de&city=${adcode}&extensions=all`
   )
 }
+
+export const getSearchCity = (info) => {
+  return request.get(`/geocode/geo?address=${info}&key=73da48818bed5c8e65bc1a06cd9859de`)
+}

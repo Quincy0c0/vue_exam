@@ -1,9 +1,11 @@
 <template>
   <header class="bg-weather-primary shadow-lg sticky top-0 z-10 w-full">
     <div class="text-white py-6 justify-around flex">
-      <div class="flex w-2/5 items-center justify-around">
-        <a href="/" class="text-2xl"><i class="fa-solid fa-sun"></i>&nbsp;&nbsp;新中地天气</a>
+      <div class="flex w-4/10 items-center justify-around">
+        <a href="/" class="text-2xl"><i class="fa-solid fa-sun"></i>&nbsp;&nbsp;新中地天气</a
+        >&nbsp;&nbsp;
         <div class="text-lg">{{ ipCityWeather.city }}</div>
+        &nbsp;&nbsp;
         <div class="text-sm">
           <span>实时天气:</span>
           &nbsp;
@@ -15,30 +17,47 @@
           <span>{{ ipCityWeather.windpower }}级</span>
         </div>
       </div>
-      <div @click="openHelp" class="items-end text-center">
+      <div class="items-end text-center">
         <i
           class="fa-solid fa-circle-info text-xl hover:text-weather-secondary cursor-pointer duration-1000"
+          @click="openHelp"
+        ></i>
+        &nbsp;
+        <i
+          class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
+          v-show="showStorge"
+          @click="StoreToLocal"
         ></i>
       </div>
     </div>
   </header>
-  <main class="container text-white w-8/12">
+  <main class="text-white justify-around flex">
     <router-view />
   </main>
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+
 import { useWeatherStore } from '@/stores/weather.js'
 
 import { storeToRefs } from 'pinia'
 
 const weatherStore = useWeatherStore()
 
-const { ipCityWeather } = storeToRefs(weatherStore)
+const { ipCityWeather, showStorge, readyToStorge } = storeToRefs(weatherStore)
 
-const { getIPcity } = weatherStore
+const { getIPcity, StoreToLocal } = weatherStore
 
-getIPcity()
+onMounted(() => {
+  getIPcity()
+  console.log(localStorage.getItem('weatherInfo'))
+  //将本地信息转化为数组
+  if (localStorage.getItem('weatherInfo')) {
+    readyToStorge.value = JSON.parse(localStorage.getItem('weatherInfo'))
+  }
+  console.log(readyToStorge.value)
+})
 
 const openHelp = () => {
   ElMessageBox.alert(
@@ -48,6 +67,7 @@ const openHelp = () => {
       confirmButtonText: '关闭',
       'show-close': false,
       draggable: true,
+      center: true,
       dangerouslyUseHTMLString: true
     }
   )
