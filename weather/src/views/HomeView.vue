@@ -51,12 +51,12 @@ const { getIPcity, StoreToLocal } = weatherStore
 
 onMounted(() => {
   getIPcity()
-  console.log(localStorage.getItem('weatherInfo'))
+  // console.log(localStorage.getItem('weatherInfo'))
   //将本地信息转化为数组
   if (localStorage.getItem('weatherInfo')) {
     readyToStorge.value = JSON.parse(localStorage.getItem('weatherInfo'))
   }
-  console.log(readyToStorge.value)
+  // console.log(readyToStorge.value)
 })
 
 const openHelp = () => {

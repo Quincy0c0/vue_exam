@@ -1,9 +1,7 @@
 <template>
   <div class="w-full flex flex-col items-center">
     <div class="p-2 text-center bg-weather-secondary w-full">
-      你正在预览{{
-        gotoPageInfo.city.length < 1 ? gotoPageInfo.province : gotoPageInfo.city
-      }}的天气信息，可以通过右上角的"+"号按钮保存起来
+      你正在预览{{ searchPageData.city }}的天气信息，可以通过右上角的"+"号按钮保存起来
     </div>
     <div>
       <ul class="container flex flex-col text-center mt-6 gap-4">
@@ -116,6 +114,10 @@ watch(searchPageFutureData, () => {
   })
 })
 onMounted(() => {
+  if (localStorage.getItem('SearchPageInfo')) {
+    console.log(localStorage.getItem('SearchPageInfo'))
+    gotoPageInfo.value = JSON.parse(localStorage.getItem('SearchPageInfo'))
+  }
   getSearchCityWeather(gotoPageInfo.value.adcode)
   getSearchCityFutureWeather(gotoPageInfo.value.adcode)
   console.log(searchPageData.value)

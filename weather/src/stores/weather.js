@@ -49,7 +49,12 @@ export const useWeatherStore = defineStore('weather', () => {
   const getTemp = async (tem) => {
     StorgeTemData.value = []
     const res = await getDefaultWeather(tem)
-    StorgeTemData.value.push({ temp: res.data.lives[0].temperature, city: res.data.lives[0].city })
+    // console.log(res.data)
+    StorgeTemData.value.push({
+      temp: res.data.lives[0].temperature,
+      city: res.data.lives[0].city,
+      adcode: res.data.lives[0].adcode
+    })
     // console.log(StorgeTemData.value)
   }
 
@@ -59,7 +64,7 @@ export const useWeatherStore = defineStore('weather', () => {
   }
 
   const StoreToLocal = () => {
-    console.log('123')
+    // console.log('123')
     const res = readyToStorge.value.findIndex(
       (item) => item.city === gotoPageInfo.value.city && item.adcode === gotoPageInfo.value.adcode
     )
@@ -98,12 +103,19 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   }
 
+  const deleteStorge = (city) => {
+    const res = readyToStorge.value.findIndex((item) => item.city === city)
+    console.log(res)
+    readyToStorge.value.splice(res, 1)
+    localStorage.setItem('weatherInfo', JSON.stringify(readyToStorge.value))
+  }
+
   watch(
     ipCity,
     (newVal) => {
       getWeatherDefault(ipCity.value.adcode)
       getWeatherAll(ipCity.value.adcode)
-      console.log(ipCityWeather.value)
+      // console.log(ipCityWeather.value)
     },
     { deep: true }
   )
@@ -131,6 +143,7 @@ export const useWeatherStore = defineStore('weather', () => {
     StoreToLocal,
     readyToStorge,
     getTemp,
-    StorgeTemData
+    StorgeTemData,
+    deleteStorge
   }
 })

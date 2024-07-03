@@ -1,47 +1,64 @@
 <template>
   <div class="bg-weather-primary w-8/12 flex-col flex">
-    <div class="pt-4 mb-8 relative">
+    <div class="pt-4 relative mb-10">
       <input
         type="text"
         placeholder="请输入城市名称"
         class="py-2 px-1 w-full bg-transparent border-b focus:border-weather-secondary focus:outline-none focus:shadow-md"
         v-model.trim="iptSearch"
       />
-      <ul
-        class="absolute bg-weather-secondary text-white w-full shadow-md py-2 px-1 top-[62px] z-50"
+      <el-scrollbar
+        max-height="100px"
+        class="bg-weather-secondary text-white w-full shadow-md py-2 px-1 z-50"
+        :style="
+          returnData.length > 1
+            ? 'height: 120px; position: absolute'
+            : 'height: 50px; position: absolute'
+        "
         v-show="iptSearch !== ''"
       >
-        <li
+        <div
           v-for="(item, index) in returnData"
           :key="index"
           class="py-2 cursor-pointer"
           @click="goToSearchPage(item)"
         >
-          {{ item.city.length < 1 ? item.province : item.city }}
-        </li>
-        <li v-if="returnData.length === 0" class="py-2">似乎没有找到你查找的城市</li>
-      </ul>
+          {{ showCity(item) }}
+        </div>
+        <div v-if="returnData.length === 0" class="py-2">似乎没有找到你查找的城市</div>
+      </el-scrollbar>
     </div>
-    <el-scrollbar max-height="500px" class="mt-10 mb-10">
+    <el-scrollbar
+      max-height="500px"
+      class="hover:scrollbar-thumb-blue-300"
+      v-show="iptSearch == ''"
+    >
       <div
-        class="flex justify-around items-stretch"
+        class="flex justify-between items-stretch"
         v-for="(item, index) in StorgeTemData"
         :key="index"
+        @mousemove="showBtns(index)"
+        @mouseleave="showIndex = -1"
       >
         <div
           class="mb-4 bg-weather-secondary py-2 px-4 flex justify-between cursor-pointer w-full duration-300"
+          :class="showIndex === index ? 'w-4/5' : ''"
         >
           <h3>{{ item.city }}</h3>
           <span>{{ item.temp }}度</span>
         </div>
-        <div class="flex justify-around mt-1 ml-2">
-          <el-button type="warning">Warning</el-button>
-          <el-button type="warning">Warning</el-button>
+        <div class="flex mb-4 gap-2 justify-between" v-show="showIndex === index">
+          <button class="bg-yellow-500 text-center w-[80px]" @click="gotoLoadedPage(item)">
+            查看
+          </button>
+          <button class="bg-yellow-500 text-center w-[80px]" @click="deleteStorge(item.city)">
+            删除
+          </button>
         </div>
       </div>
     </el-scrollbar>
     <div>
-      <div>近期天气</div>
+      <div :class="returnData.length > 1 ? 'mt-24' : 'mt-5'">近期天气</div>
       <div class="bg-weather-secondary px-12 pt-10 mt-2 rounded">
         <div class="flex gap-6">
           <div
@@ -74,11 +91,13 @@ import { storeToRefs } from 'pinia'
 
 import { useRouter } from 'vue-router'
 
+const showIndex = ref(-1)
+
 const router = useRouter()
 
 const weatherStore = useWeatherStore()
 
-const { ToggletoChinese, getTemp } = useWeatherStore()
+const { ToggletoChinese, getTemp, deleteStorge } = useWeatherStore()
 
 const {
   ipCityFutureWeather,
@@ -104,10 +123,35 @@ const nightData = ref([])
 const returnData = ref([])
 
 const goToSearchPage = (item) => {
-  console.log(item)
+  // console.log(item)
   gotoPageInfo.value = item
   console.log(gotoPageInfo.value)
   router.push('/search')
+  localStorage.setItem('SearchPageInfo', JSON.stringify(gotoPageInfo.value))
+}
+
+const gotoLoadedPage = (item) => {
+  gotoPageInfo.value = {
+    adcode: item.adcode,
+    city: item.city
+  }
+  router.push('/search')
+  localStorage.setItem('SearchPageInfo', JSON.stringify(gotoPageInfo.value))
+}
+
+const showBtns = (index) => {
+  showIndex.value = index
+}
+
+const showCity = (item) => {
+  // console.log(item)
+  // console.log(item.city)
+  if (item.district.length > 0) {
+    // console.log(item.district)
+    return item.district
+  } else if (item.city.length > 0) {
+    return item.city
+  } else return item.province
 }
 
 watch(ipCityFutureWeather, () => {
