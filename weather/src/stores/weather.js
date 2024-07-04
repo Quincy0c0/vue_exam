@@ -48,14 +48,14 @@ export const useWeatherStore = defineStore('weather', () => {
 
   const getTemp = async (tem) => {
     StorgeTemData.value = []
-    const res = await getDefaultWeather(tem)
-    // console.log(res.data)
-    StorgeTemData.value.push({
-      temp: res.data.lives[0].temperature,
-      city: res.data.lives[0].city,
-      adcode: res.data.lives[0].adcode
-    })
-    // console.log(StorgeTemData.value)
+    if (tem !== '0' || tem !== 0) {
+      const res = await getDefaultWeather(tem)
+      StorgeTemData.value.push({
+        temp: res.data.lives[0].temperature,
+        city: res.data.lives[0].city,
+        adcode: res.data.lives[0].adcode
+      })
+    }
   }
 
   const getSearchCityFutureWeather = async (adcode) => {
@@ -76,7 +76,7 @@ export const useWeatherStore = defineStore('weather', () => {
       readyToStorge.value.push({ city: gotoPageInfo.value.city, adcode: gotoPageInfo.value.adcode })
       showStorge.value = false
     }
-    console.log(readyToStorge.value)
+
     localStorage.setItem('weatherInfo', JSON.stringify(readyToStorge.value))
   }
   const ToggletoChinese = (value) => {
@@ -105,9 +105,10 @@ export const useWeatherStore = defineStore('weather', () => {
 
   const deleteStorge = (city) => {
     const res = readyToStorge.value.findIndex((item) => item.city === city)
-    console.log(res)
+
     readyToStorge.value.splice(res, 1)
     localStorage.setItem('weatherInfo', JSON.stringify(readyToStorge.value))
+    localStorage.removeItem('SearchPageInfo')
   }
 
   watch(

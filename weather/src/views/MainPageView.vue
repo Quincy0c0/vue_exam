@@ -29,11 +29,11 @@
       </el-scrollbar>
     </div>
     <el-scrollbar
-      max-height="500px"
+      max-height="300px"
       class="hover:scrollbar-thumb-blue-300"
       v-show="iptSearch == ''"
     >
-      <div
+      <divW
         class="flex justify-between items-stretch"
         v-for="(item, index) in StorgeTemData"
         :key="index"
@@ -55,7 +55,7 @@
             删除
           </button>
         </div>
-      </div>
+      </divW>
     </el-scrollbar>
     <div>
       <div :class="returnData.length > 1 ? 'mt-24' : 'mt-5'">近期天气</div>
@@ -111,9 +111,13 @@ const {
 watch(
   readyToStorge,
   () => {
-    readyToStorge.value.forEach((item) => {
-      getTemp(item.adcode)
-    })
+    if (readyToStorge.value.length > 0) {
+      readyToStorge.value.forEach((item) => {
+        getTemp(item.adcode)
+      })
+    } else {
+      StorgeTemData.value = []
+    }
   },
   { deep: true }
 )
@@ -123,9 +127,8 @@ const nightData = ref([])
 const returnData = ref([])
 
 const goToSearchPage = (item) => {
-  // console.log(item)
   gotoPageInfo.value = item
-  console.log(gotoPageInfo.value)
+
   router.push('/search')
   localStorage.setItem('SearchPageInfo', JSON.stringify(gotoPageInfo.value))
 }
@@ -162,19 +165,15 @@ watch(ipCityFutureWeather, () => {
 })
 
 watch(SearchReturnCity, () => {
-  console.log(SearchReturnCity.value)
-  // console.log(SearchReturnCity.value.status)
   if (SearchReturnCity.value.status === '1') {
     returnData.value = []
 
-    // console.log(SearchReturnCity.value.geocodes)
     SearchReturnCity.value.geocodes.forEach((item) => {
       const res = returnData.value.findIndex((i) => i.city === item.city)
       if (res === -1) {
         returnData.value.push(item)
       }
     })
-    // console.log(returnData.value)
   }
 })
 

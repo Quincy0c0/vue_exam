@@ -1,7 +1,8 @@
 <template>
   <div class="w-full flex flex-col items-center">
     <div class="p-2 text-center bg-weather-secondary w-full">
-      你正在预览{{ searchPageData.city }}的天气信息，可以通过右上角的"+"号按钮保存起来
+      你正在预览{{ searchPageData.city }}的天气信息
+      <span v-show="showStorge">，可以通过右上角的"+"号按钮保存起来</span>
     </div>
     <div>
       <ul class="container flex flex-col text-center mt-6 gap-4">
@@ -113,15 +114,23 @@ watch(searchPageFutureData, () => {
     nightData.value.push(item.nighttemp)
   })
 })
+
+watch(readyToStorge, () => {
+  const res = readyToStorge.value.findIndex(
+    (item) => item.city === gotoPageInfo.value.city && item.adcode === gotoPageInfo.value.adcode
+  )
+  if (res === -1) {
+    showStorge.value = true
+  } else {
+    showStorge.value = false
+  }
+})
 onMounted(() => {
   if (localStorage.getItem('SearchPageInfo')) {
-    console.log(localStorage.getItem('SearchPageInfo'))
     gotoPageInfo.value = JSON.parse(localStorage.getItem('SearchPageInfo'))
   }
   getSearchCityWeather(gotoPageInfo.value.adcode)
   getSearchCityFutureWeather(gotoPageInfo.value.adcode)
-  console.log(searchPageData.value)
-  console.log(searchPageFutureData.value)
   const res = readyToStorge.value.findIndex(
     (item) => item.city === gotoPageInfo.value.city && item.adcode === gotoPageInfo.value.adcode
   )
