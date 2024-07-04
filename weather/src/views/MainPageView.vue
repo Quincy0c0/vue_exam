@@ -42,7 +42,7 @@
       >
         <div
           class="mb-4 bg-weather-secondary py-2 px-4 flex justify-between cursor-pointer w-full duration-300"
-          :class="showIndex === index ? 'w-4/5' : ''"
+          :style="showIndex === index ? 'width:78%' : ''"
         >
           <h3>{{ item.city }}</h3>
           <span>{{ item.temp }}度</span>

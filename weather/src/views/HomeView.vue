@@ -20,8 +20,9 @@
       <div class="items-end text-center">
         <i
           class="fa-solid fa-circle-info text-xl hover:text-weather-secondary cursor-pointer duration-1000"
-          @click="openHelp"
+          @click="dialogVisible = true"
         ></i>
+
         &nbsp;
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
@@ -31,17 +32,41 @@
       </div>
     </div>
   </header>
+  <el-dialog :show-close="false" v-model="dialogVisible" width="19.5%" class="dialog">
+    <div style="color: black; font-size: 12px">
+      <h2 style="font-size: 16px">关于:</h2>
+      <p>这个应用可以用来追踪你选择城市的当前天气</p>
+      <p>&nbsp</p>
+      <h2 style="font-size: 16px">如何使用:</h2>
+      <p>
+        1.点击搜索框输入你希望追踪的城市<br />
+        2.在搜索结果中选中一个城市，你将获取当地最新的天气<br />
+        3.点击右侧的＋号可以将追踪城市的天气情况保存在首页
+      </p>
+      <p>&nbsp</p>
+      <h2 style="font-size: 16px">移除城市:</h2>
+      <p>如果你不想在首页关注某个城市,可以通过底部的按钮删<br />除它</p>
+      <button
+        class="text-white mt-8 bg-weather-primary py-2 px-6 text-xs"
+        @click="dialogVisible = false"
+      >
+        关闭
+      </button>
+    </div>
+  </el-dialog>
   <main class="text-white justify-around flex">
     <router-view />
   </main>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { useWeatherStore } from '@/stores/weather.js'
 
 import { storeToRefs } from 'pinia'
+
+const dialogVisible = ref(false)
 
 const weatherStore = useWeatherStore()
 
@@ -58,39 +83,15 @@ onMounted(() => {
   }
   // console.log(readyToStorge.value)
 })
-
-const openHelp = () => {
-  ElMessageBox.alert(
-    '<div style="color:black;font-size:12px"><h2 style="font-size:16px">关于:</h2><p>这个应用可以用来追踪你选择城市的当前天气</p><p>&nbsp</p><h2 style="font-size:16px">如何使用:</h2><p> 1.点击搜索框输入你希望追踪的城市<br/> 2.在搜索结果中选中一个城市，你将获取当地最新的天气<br/> 3.点击右侧的＋号可以将追踪城市的天气情况保存在首页 </p><p>&nbsp</p><h2 style="font-size:16px">移除城市:</h2><p> 如果你不想在首页关注某个城市,可以通过底部的按钮删<br>除它 </p><p>&nbsp</p></div>',
-    '',
-    {
-      confirmButtonText: '关闭',
-      'show-close': false,
-      draggable: true,
-      center: true,
-      dangerouslyUseHTMLString: true
-    }
-  )
-}
 </script>
 
-<style scoped>
-:deep(.el-message-box) {
-  width: 322px;
+<style>
+.dialog {
   border-radius: 0;
+  padding: 15px;
 }
-:deep(.el-message-box__btns) {
-  justify-content: flex-start;
-}
-:deep(.el-button--primary) {
-  background-color: rgb(0, 102, 138);
-  outline: none;
-  border: none;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: 0;
-  padding: 10px 20px;
-  cursor: pointer;
+
+.dialog .el-dialog__header {
+  padding: 0;
 }
 </style>
