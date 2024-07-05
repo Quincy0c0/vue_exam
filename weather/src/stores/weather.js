@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import { getIP, getAdcode, getDefaultWeather, getAllWeather, getSearchCity } from '@/api/index.js'
 
 import { ref, watch } from 'vue'
+
+import { debounce } from 'lodash-es'
+
 export const useWeatherStore = defineStore('weather', () => {
   const ip = ref('')
   const ipCity = ref({})
@@ -37,24 +40,48 @@ export const useWeatherStore = defineStore('weather', () => {
 
   const SearchCity = async () => {
     const res = await getSearchCity(iptSearch.value)
-    // console.log(res.data)
     SearchReturnCity.value = res.data
   }
+
+  const debouncedSearchCity = debounce(SearchCity, 100)
 
   const getSearchCityWeather = async (adcode) => {
     const res = await getDefaultWeather(adcode)
     searchPageData.value = res.data.lives[0]
   }
 
-  const getTemp = async (tem) => {
-    StorgeTemData.value = []
-    if (tem !== '0' || tem !== 0) {
-      const res = await getDefaultWeather(tem)
-      StorgeTemData.value.push({
-        temp: res.data.lives[0].temperature,
-        city: res.data.lives[0].city,
-        adcode: res.data.lives[0].adcode
-      })
+  // const getTemp = async (tem) => {
+  //   StorgeTemData.value = []
+  //   if (tem !== '0' || tem !== 0) {
+  //     const res = await getDefaultWeather(tem)
+  //     StorgeTemData.value.push({
+  //       temp: res.data.lives[0].temperature,
+  //       city: res.data.lives[0].city,
+  //       adcode: res.data.lives[0].adcode
+  //     })
+  //   }
+  // }
+
+  const getTemp = async (adcode) => {
+    if (adcode !== '0' && adcode !== 0) {
+      try {
+        const res = await getDefaultWeather(adcode)
+        if (res && res.data && res.data.lives && res.data.lives.length > 0) {
+          return {
+            temp: res.data.lives[0].temperature,
+            city: res.data.lives[0].city,
+            adcode: res.data.lives[0].adcode
+          }
+        } else {
+          console.error('Unexpected response structure:', res)
+          return null // 返回 null 以便过滤
+        }
+      } catch (error) {
+        console.error('Error fetching weather data:', error)
+        return null // 返回 null 以便过滤
+      }
+    } else {
+      return null // 如果 adcode 是 '0' 或 0，返回 null
     }
   }
 
@@ -122,7 +149,10 @@ export const useWeatherStore = defineStore('weather', () => {
   )
   watch(iptSearch, (newVal) => {
     // console.log(newVal)
-    SearchCity()
+    // SearchCity()
+    console.log(newVal)
+    // debounce(SearchCity, 100)
+    debouncedSearchCity()
   })
   return {
     ip,

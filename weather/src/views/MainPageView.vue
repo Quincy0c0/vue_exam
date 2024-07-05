@@ -108,20 +108,33 @@ const {
   StorgeTemData
 } = storeToRefs(weatherStore)
 
+// watch(
+//   readyToStorge,
+//   () => {
+//     if (readyToStorge.value.length > 0) {
+//       readyToStorge.value.forEach((item) => {
+//         getTemp(item.adcode)
+//       })
+//     } else {
+//       StorgeTemData.value = []
+//     }
+//   },
+//   { deep: true }
+// )
 watch(
   readyToStorge,
-  () => {
-    if (readyToStorge.value.length > 0) {
-      readyToStorge.value.forEach((item) => {
-        getTemp(item.adcode)
-      })
+  async (newVal) => {
+    if (newVal.length > 0) {
+      const tempPromises = newVal.map((item) => getTemp(item.adcode))
+      console.log(tempPromises)
+      const tempData = await Promise.all(tempPromises)
+      StorgeTemData.value = tempData.filter((data) => data !== null) // 过滤掉 null 的结果
     } else {
       StorgeTemData.value = []
     }
   },
   { deep: true }
 )
-
 const dayData = ref([])
 const nightData = ref([])
 const returnData = ref([])
