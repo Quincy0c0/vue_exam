@@ -150,7 +150,6 @@ export const useWeatherStore = defineStore('weather', () => {
   watch(iptSearch, (newVal) => {
     // console.log(newVal)
     // SearchCity()
-    console.log(newVal)
     // debounce(SearchCity, 100)
     debouncedSearchCity()
   })
